@@ -260,14 +260,14 @@ void GPUImageCreateResizedSampleBuffer(CVPixelBufferRef cameraFrame, CGSize fina
         }
         else
         {
-            // This is a workaround for the corrupt images that are sometimes returned when taking a photo with the front camera and using the iOS 5.0 texture caches
-            AVCaptureDevicePosition currentCameraPosition = [[videoInput device] position];
-            if ( (currentCameraPosition != AVCaptureDevicePositionFront) || (![GPUImageOpenGLESContext supportsFastTextureUpload]))
-            {
+//            // This is a workaround for the corrupt images that are sometimes returned when taking a photo with the front camera and using the iOS 5.0 texture caches
+//            AVCaptureDevicePosition currentCameraPosition = [[videoInput device] position];
+//            if ( (currentCameraPosition != AVCaptureDevicePositionFront) || (![GPUImageOpenGLESContext supportsFastTextureUpload]))
+//            {
                 dispatch_semaphore_signal(frameRenderingSemaphore);
                 [self captureOutput:photoOutput didOutputSampleBuffer:imageSampleBuffer fromConnection:[[photoOutput connections] objectAtIndex:0]];
                 dispatch_semaphore_wait(frameRenderingSemaphore, DISPATCH_TIME_FOREVER);
-            }
+//            }
         }
         
         CFDictionaryRef metadata = CMCopyDictionaryOfAttachments(NULL, imageSampleBuffer, kCMAttachmentMode_ShouldPropagate);
